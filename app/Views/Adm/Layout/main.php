@@ -191,6 +191,13 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="<?php echo site_url('adm/measurements'); ?>">
+            <i class="mdi mdi-box-shadow menu-icon"></i>
+            <span class="menu-title">Medidas</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="<?php echo site_url('adm/Users'); ?>">
             <i class="mdi mdi-account-settings menu-icon"></i>
             <span class="menu-title">Usuários</span>

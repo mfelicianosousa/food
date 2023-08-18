@@ -44,7 +44,7 @@ class Extras extends BaseController
     }
 
     /**
-     * Criar uma novo Extra.
+     * Criar uma nova Extra (Additional)
      *
      * @param int $id
      *
