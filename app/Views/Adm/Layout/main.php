@@ -183,6 +183,8 @@
           </a>
         </li>
 
+        
+
         <li class="nav-item">
           <a class="nav-link" href="<?php echo site_url('adm/extras'); ?>">
             <i class="mdi mdi-box-shadow menu-icon"></i>
@@ -198,11 +200,19 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="<?php echo site_url('adm/products'); ?>">
+            <i class="mdi mdi-account-settings menu-icon"></i>
+            <span class="menu-title">Produtos</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="<?php echo site_url('adm/Users'); ?>">
             <i class="mdi mdi-account-settings menu-icon"></i>
             <span class="menu-title">Usuários</span>
           </a>
         </li>
+      
 
 
         <li class="nav-item">
