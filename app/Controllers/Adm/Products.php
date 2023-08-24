@@ -8,10 +8,12 @@ use App\Entities\Product ;
 class Products extends BaseController
 {
     private $productModel;
+    private $categoryModel;
 
     public function __construct(){
 
         $this->productModel = new \App\Models\ProductModel();
+        $this->categoryModel = new \App\Models\CategoryModel();
 
     }
 
@@ -47,8 +49,8 @@ class Products extends BaseController
         return $this->response->setJSON($return);
     }
 
-/**
-     * Apresenta na tela o product selecionado.
+    /**
+     * Apresenta o produto selecionado
      *
      * @param int $id
      *
@@ -66,6 +68,28 @@ class Products extends BaseController
         ];
 
         return view('adm/Products/show', $data);
+    }
+
+    /**
+     * Editar o produto selecionado
+     *
+     * @param int $id
+     *
+     * @return object $product
+     */
+    public function edit($id = null)
+    {
+        $product = $this->findProductOr404($id);
+
+        // dd($extra);
+
+        $data = [
+         'title' => "Edição do Produto: $product->name",
+         'product' => $product,
+         'categories' => $this->categoryModel->where('active', true)->findAll(),
+        ];
+
+        return view('adm/Products/edit', $data);
     }
 
 
