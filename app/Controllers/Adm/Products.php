@@ -50,7 +50,30 @@ class Products extends BaseController
     }
 
     /**
-     * Apresenta o produto selecionado
+     * Cria um novo produto
+     *
+     * @param int $id
+     *
+     * @return object $product
+     */
+    public function create()
+    {
+       
+        $product = new Product();
+
+        // dd($extra);
+
+        $data = [
+         'title' => "Criando novo produto",
+         'product' => $product,
+         'categories' => $this->categoryModel->where('active', true)->findAll(),
+        ];
+
+        return view('adm/Products/create', $data);
+    }
+
+    /**
+     * Apresenta o produto selecionado na tela
      *
      * @param int $id
      *
@@ -92,6 +115,86 @@ class Products extends BaseController
         return view('adm/Products/edit', $data);
     }
 
+    public function update($id = null){
+
+        if($this->request->getMethod()==='post'){
+
+            $product = $this->findProductOr404($id);
+
+            $product->fill($this->request->getPost());
+
+            // echo "<pre>";
+            // print_r( $_POST ) ;
+            // print_r( $product ) ;
+            // echo "</pre>";
+            // exit;
+
+            if(!$product->hasChanged()){
+
+                return redirect()->back()->with('info','Não há dados para atualizar');
+            }
+
+            // echo "<pre>";
+            // print_r( $product) ;
+            // echo "</pre>";
+            // exit;
+
+            if ($this->productModel->save($product)){
+
+                return redirect()->to(site_url("adm/products/show/$id"))->with('success','Produto atualizado com sucesso');
+
+            } else {
+
+                // erros de validação
+
+                return redirect()->back()
+                                 ->with('errors_model',$this->productModel->errors())
+                                 ->with('info', 'Por favor verifique os erros abaixo')
+                                 ->withInput();
+            }
+
+        } else {
+
+            return redirect()->back();
+
+        }
+
+    }
+
+    public function register(){
+
+        if($this->request->getMethod()==='post'){
+
+            $product = new Product($this->request->getPost());
+
+            // echo "<pre>";
+            // print_r( $_POST ) ;
+            // print_r( $product ) ;
+            // echo "</pre>";
+            // exit;
+
+            if ($this->productModel->save($product)){
+
+                return redirect()->to(site_url("adm/products/show/").$this->productModel->getInsertID())
+                        ->with('success',"Produto $product->name, cadastrado com sucesso");
+
+            } else {
+
+                // erros de validação
+
+                return redirect()->back()
+                                 ->with('errors_model',$this->productModel->errors())
+                                 ->with('info', 'Por favor verifique os erros abaixo')
+                                 ->withInput();
+            }
+
+        } else {
+
+            return redirect()->back();
+
+        }
+
+    }
 
 
     /**
@@ -103,8 +206,10 @@ class Products extends BaseController
       private function findProductOr404(int $id = null)
       {
           // ->withDeleted(true) Pesquisar os extras deletados
-          if (!$id || !$product = $this->productModel->select('products.*, categories.name as category')
+
+          if (!$id || ! $product = $this->productModel->select('products.*, categories.name as category')
                                                      ->join('categories','categories.id = products.category_id')
+                                                     ->where('products.id',$id)
                                                      ->withDeleted(true)
                                                      ->first()) {
               throw \CodeIgniter\Exceptions\PageNotFoundException::ForPageNotFound("Não encontramos o produto $id");

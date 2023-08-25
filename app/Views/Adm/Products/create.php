@@ -1,6 +1,6 @@
 /**
 *
-* Formulário de Criação de Extras
+* Formulário Novo Produto
 *
 */
 
@@ -23,9 +23,7 @@
 <?php echo $this->section('content'); ?>
 <!-- Aqui enviamos para os template principal (main) o content (conteúdos) -->
 <div class="row">
-
-
-    <div class="col-lg-8 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-header bg-primary pb-0 pt-4">
                 <h4 class="card-title text-white"> <?php echo esc($title); ?></h4>
@@ -48,12 +46,12 @@
                 <?php } ?>
 
                 <!-- Envia os dados para cadastrar (register) -->
-                <?php echo form_open('adm/extras/register'); ?>
+                <?php echo form_open('adm/products/register'); ?>
 
-                <?php echo $this->include('Adm/Extras/form'); ?>
+                <?php echo $this->include('Adm/Products/form'); ?>
                 
                 <!-- Botão voltar -->
-                <a href="<?php echo site_url('adm/extras'); ?>" class="btn btn-light text-dark btn-sm">
+                <a href="<?php echo site_url('adm/products'); ?>" class="btn btn-light text-dark btn-sm">
                     <i class="mdi mdi-arrow-left btn-icon-prepend"></i>
                     Voltar
                 </a>

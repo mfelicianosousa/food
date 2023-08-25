@@ -31,7 +31,7 @@ class ProductModel extends Model
     // Validation
     // Regras de validações
     protected $validationRules = [
-        'name' => 'required|min_length[4]|max_length[120]|is_unique[product.name]',
+        'name' => 'required|min_length[4]|max_length[120]|is_unique[products.name]',
         'category_id' => 'required|integer',
         'ingredients' => 'required|min_length[10]|max_length[1000]',
     ];
