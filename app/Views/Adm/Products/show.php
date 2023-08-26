@@ -29,17 +29,20 @@
             </div>
 
             <div class="card-body">
-                <?php if($product->image): ?>
-                         <img class="card-img-top" src="" alt="Card image car">
-                <?php else: ?>
-                    <img class="card-img-top" src="<?php echo site_url('adm/images/product-without-image.jpg') ?>" alt="Produto sem imagem">
-                <?php endif; ?>
-
+                <div class="text-center">
+                    <?php if($product->image): ?>
+                            <img class="card-img-top w-75" src="" alt="Card image car">
+                    <?php else: ?>
+                        <img class="card-img-top w-75" src="<?php echo site_url('adm/images/product-without-image.jpg') ?>" alt="Produto sem imagem">
+                    <?php endif; ?>
+                </div>
                 <!--- Botão Editar imagem -->
-                <a href="<?php echo site_url("adm/products/editimagem/$product->id"); ?>" class="btn btn-outline-primary mb-3 btn-sm">
+                <a href="<?php echo site_url("adm/products/editimage/$product->id"); ?>" class="btn btn-outline-primary mb-2 btn-sm">
                    <i class="mdi mdi-image btn-icon-prepend"></i>
                     Editar
                 </a>
+                
+                <hr>
            
                 <p class="card-text">
                     <span class="font-weight-bold">Nome:</span>

@@ -115,6 +115,20 @@ class Products extends BaseController
         return view('adm/Products/edit', $data);
     }
 
+     
+    public function editImage (int $id = null)
+    {
+
+        $product = $this->findProductOr404($id);
+        $data = [
+         'title' => "Editando imagem do Produto: $product->name",
+         'product' => $product,
+        ];
+
+        return view('adm/Products/edit_image', $data);
+
+    }
+
     public function update($id = null){
 
         if($this->request->getMethod()==='post'){
@@ -216,5 +230,8 @@ class Products extends BaseController
           }
  
           return $product;
-      }
+    }
+
+   
+
 }
