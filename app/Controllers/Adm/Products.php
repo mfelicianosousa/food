@@ -157,8 +157,32 @@ class Products extends BaseController
         if ($width < '400' || $height < '400') {
             return redirect()->back()->with('info', 'A imagem não pode ser menor que 400 x 400 pixels');
         }
+        // -- A partir desse ponto fazemos o store da image --//
+        /* fazendo o store da imagem */
+        $pathImage = $image->store('products');
+        $pathImage = WRITEPATH.'uploads/'.$pathImage;
+        /* fazendo o fit( recsize)da imagem */
+        service('image')->withFile($pathImage)
+                        ->fit(400, 400, 'center')
+                        ->save($pathImage);
 
-        dd($image);
+        /** Recuperando a imagem antiga, para exclui-la */
+        $oldImage = $product->image;
+
+        /* Atribuindo a nova imagem */
+        $product->image = $image->getname();
+        /* Atualizando a image do product */
+        $this->productModel->save($product);
+
+        /** Definindo o caminho da imagem antiga, para ser excluida */
+        $pathImage = WRITEPATH.'uploads/products'.$oldImage;
+
+        if (is_file($pathImage)) {
+            unlink($pathImage);
+        }
+
+        return redirect()->to(site_url("adm/products/show/$product->id"))
+                         ->with('success', 'Imagem alterada com sucesso');
     }
 
     public function update($id = null)
@@ -167,12 +191,6 @@ class Products extends BaseController
             $product = $this->findProductOr404($id);
 
             $product->fill($this->request->getPost());
-
-            // echo "<pre>";
-            // print_r( $_POST ) ;
-            // print_r( $product ) ;
-            // echo "</pre>";
-            // exit;
 
             if (!$product->hasChanged()) {
                 return redirect()->back()->with('info', 'Não há dados para atualizar');
