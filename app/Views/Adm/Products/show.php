@@ -30,14 +30,15 @@
 
             <div class="card-body">
                 <div class="text-center">
-                    <?php if($product->image): ?>
-                            <img class="card-img-top w-75" src="" alt="Card image car">
-                    <?php else: ?>
-                        <img class="card-img-top w-75" src="<?php echo site_url('adm/images/product-without-image.jpg') ?>" alt="Produto sem imagem">
-                    <?php endif; ?>
+                    <?php if ($product->image) { ?>
+                            <img class="card-img-top w-75" src="<?php echo site_url("adm/products/image/$product->image"); ?>" alt="<?php echo esc($product->name); ?>">
+                    <?php } else { ?>
+                        <img class="card-img-top w-75" src="<?php echo site_url('adm/images/product-without-image.jpg'); ?>" alt="Produto sem imagem">
+                    <?php } ?>
                 </div>
+                <hr>
                 <!--- Botão Editar imagem -->
-                <a href="<?php echo site_url("adm/products/editimage/$product->id"); ?>" class="btn btn-outline-primary mb-2 btn-sm">
+                <a href="<?php echo site_url("adm/products/editimage/$product->id"); ?>" class="btn btn-outline-primary mt-2 mb-2 btn-sm">
                    <i class="mdi mdi-image btn-icon-prepend"></i>
                     Editar
                 </a>
@@ -51,7 +52,7 @@
 
                 <p class="card-text">
                     <span class="font-weight-bold">Categoria :</span>
-                    <?php echo $product->category ; ?>
+                    <?php echo $product->category; ?>
                 </p>
                                    
                 <p class="card-text">

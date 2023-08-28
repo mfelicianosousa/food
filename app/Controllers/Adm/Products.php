@@ -5,6 +5,7 @@ namespace App\Controllers\Adm;
 use App\Controllers\BaseController;
 use App\Entities\Product;
 
+
 class Products extends BaseController
 {
     private $productModel;
@@ -183,6 +184,33 @@ class Products extends BaseController
 
         return redirect()->to(site_url("adm/products/show/$product->id"))
                          ->with('success', 'Imagem alterada com sucesso');
+    }
+   
+ 
+    // Apresenta a imagem na tela de produto
+
+    public function image(string $image = null)
+    {
+       
+        if ($image) {
+
+            $imagePath = WRITEPATH."uploads\products".DIRECTORY_SEPARATOR.$image;
+
+            $imageInfo = new \finfo( FILEINFO_MIME );
+
+            echo "<pre>";
+            print_r($imageInfo) ;
+            echo "</pre>";
+            exit;
+            //$imageInfo = new Finfo(FILEINFO_MIME_TYPE);
+            //$imageInfo = new finfo();
+            //$imageInfo->set_flags(FILEINFO_MIME_TYPE);
+            $imageType = $imageInfo->file($imagePath);
+            header("Content-Type: $imageType");
+            header("Content-Length: ".filesize($imagePath));
+            readfile($imagePath);
+            exit;
+        }
     }
 
     public function update($id = null)
