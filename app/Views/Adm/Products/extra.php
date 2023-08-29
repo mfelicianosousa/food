@@ -80,16 +80,42 @@
                     </div>
                     
                 <?php echo form_close(); ?>
-                <hr>
-                <div class="form-row mt-4">
+                <hr class="mt-5 mb-3">
+                <div class="form-row">
                     
-                    <div class="col-md-12">
+                    <div class="col-md-8">
 
                         <?php if(empty($productsExtras)): ?>
 
                             <p>Produto não possui extras </p>
 
                         <?php else: ?>
+
+                            <h4 class="card-title">Extras do produto</h4>
+                            <p class="card-description">
+                                <code>Aproveite para gerenciar os extras</code>
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                    <th>Extras</th>
+                                    <th>Preço</th>
+                                    <th>Remover</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($productsExtras as $productExtra): ?>
+                                      <tr>
+                                         <td><?php echo esc($productExtra->extra); ?></td>
+                                         <td><?php echo number_format($productExtra->price,2);?></td>
+                                         
+                                      </tr>
+                
+                                    <?php endforeach; ?>
+                                </tbody>
+                                </table>
+                            </div>
 
 
                         <?php endif; ?>

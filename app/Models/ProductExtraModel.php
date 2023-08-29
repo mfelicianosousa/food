@@ -28,7 +28,7 @@ class ProductExtraModel extends Model
      */
     public function findExtrasProduct(int $product_id = null){
 
-        return $this->select('extras.name AS extra, products_extras.*')
+        return $this->select('extras.name as extra, extras.price, products_extras.*')
                     ->join('extras','extras.id = products_extras.extra_id')
                     ->join('products','products.id = products_extras.product_id')
                     ->where('products_extras.product_id',$product_id)
