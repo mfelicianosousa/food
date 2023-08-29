@@ -237,9 +237,7 @@ class Products extends BaseController
          'productsExtras' => $this->productExtraModel->findExtrasProduct($product->id),
         ];
 
-        dd($data['productsExtras']);
-        
-        return view('adm/Products/extras', $data);
+        return view('adm/Products/extra', $data);
     }
 
 
