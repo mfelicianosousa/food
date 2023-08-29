@@ -13,7 +13,7 @@
 
 <?php echo $this->section('style'); ?>
 <!-- Aqui enviamos para os template main (principal) os estilos -->
-
+<link rel="stylesheet" href="<?php echo site_url('adm/vendors/select2/select2.min.css'); ?>"/>
 <?php echo $this->endSection(); ?>
 <!-- ************************************************************** -->
 
@@ -51,9 +51,9 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label> Escolha o extra do produto (opcional) </label>
-                            <select class="form-control" name="extra_id">
+                            <select class="form-control js-basic-single" name="extra_id">
 
-                                <option>Ecolha</option>
+                                <option>Escolha</option>
                                 <?php foreach ($extras as $extra):?>
 
                                   <option value="<?php echo $extra->id; ?>"> <?php echo esc($extra->name);?></option>
@@ -106,8 +106,24 @@
 
 <?php echo $this->section('scriptJs'); ?>
 <!-- Aqui enviamos para o template principal (main) os scripts ) -->
-<script src="<?php echo site_url('adm/vendors/mask/app.js'); ?>"> </script>
-<script src="<?php echo site_url('adm/vendors/mask/jquery.mask.min.js'); ?>"> </script>
+<script src="<?php echo site_url('adm/vendors/select2/select2.min.js'); ?>"> </script>
+<script> 
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+            $('.js-basic-single').select2({
 
+                placeholder: "Digite o nome do extra ...",
+                allowClear: false,
+                "language": {
+                    "noResults": function() {
+                        return "Extra não encontrado!&nbsp;&nbsp;<a class='btn btn-primary btn-sm' href='<?php echo site_url('adm/extras/create'); ?>'>Cadastrar</a>";
+                    }
+                },
+                escapeMarkup: function(markup){
+                    return markup;
+                },
 
+            });
+    });
+</script>
 <?php echo $this->endSection(); ?>
