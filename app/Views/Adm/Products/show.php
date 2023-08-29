@@ -92,6 +92,11 @@
                             <i class="mdi mdi-pencil btn-icon-prepend"></i>
                             Editar
                         </a>
+                        <!--- Botão Extras -->
+                        <a href="<?php echo site_url("adm/products/extras/$product->id"); ?>" class="btn btn-outline-success btn-sm mr-2">
+                            <i class="mdi mdi-pencial btn-icon-prepend"></i>
+                            Extras
+                        </a>
                           <!--- Botão Excluir -->
                         <a href="<?php echo site_url("adm/products/excluir/$product->id"); ?>" class="btn btn-danger btn-sm mr-2">
                             <i class="mdi mdi-trash-can btn-icon-prepend"></i>
