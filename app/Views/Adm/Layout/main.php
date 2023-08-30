@@ -299,11 +299,22 @@
                   </div>
         <?php } ?>
 
-         <!-- Alert Atençao -->
+         <!-- Alert Atençao (Attention)-->
+
+        <?php if (session()->has('attention')) { ?>
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Atenção!</strong> <?php echo session('attention'); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+        <?php } ?>
+
+         <!-- Alert Aviso (Warning) -->
 
         <?php if (session()->has('warning')) { ?>
                   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Atenção!</strong> <?php echo session('warning'); ?>
+                    <strong>Aviso!</strong> <?php echo session('warning'); ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>

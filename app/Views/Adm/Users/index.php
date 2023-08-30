@@ -72,7 +72,9 @@
 
                         </tbody>
                     </table>
+                    <!-- Pagination -->
                     <div class="mt-3">
+                        
                        <?php echo $pager->links() ?>
 
                     </div>

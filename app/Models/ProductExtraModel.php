@@ -24,15 +24,15 @@ class ProductExtraModel extends Model
      * @descriction Recupere os extras do produto
      * @uso controller Adm/Products/extra( $id = null)
      * @param int $product_id
-     * @return Type 
+     * @param int $amount_pagination
      */
-    public function findExtrasProduct(int $product_id = null){
+    public function findExtrasProduct(int $product_id = null, int $amount_pagination = null){
 
         return $this->select('extras.name as extra, extras.price, products_extras.*')
                     ->join('extras','extras.id = products_extras.extra_id')
                     ->join('products','products.id = products_extras.product_id')
                     ->where('products_extras.product_id',$product_id)
-                    ->findAll();
+                    ->paginate($amount_pagination);
     }
 
 }

@@ -53,7 +53,7 @@
                             <label> Escolha o extra do produto (opcional) </label>
                             <select class="form-control js-basic-single" name="extra_id">
 
-                                <option>Escolha</option>
+                                <option value="">Escolha</option>
                                 <?php foreach ($extras as $extra):?>
 
                                   <option value="<?php echo $extra->id; ?>"> <?php echo esc($extra->name);?></option>
@@ -101,21 +101,34 @@
                                     <tr>
                                     <th>Extras</th>
                                     <th>Preço</th>
-                                    <th>Remover</th>
+                                    <th class="text-center">Remover</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($productsExtras as $productExtra): ?>
                                       <tr>
                                          <td><?php echo esc($productExtra->extra); ?></td>
-                                         <td><?php echo number_format($productExtra->price,2);?></td>
+                                         <td><?php echo esc($moeda); ?>&nbsp;<?php echo number_format($productExtra->price,2);?></td>
                                          
+                                         <!--- Botão Excluir -->
+                                         <td class="text-center"> 
+                                            <?php echo form_open("delete_extra/$productExtra->id"); ?>
+                                            <button type="submit" class="btn badge badge-danger"> <i class="mdi mdi-trash-can btn-icon-prepend"></i></button>
+                                            <?php echo form_close(); ?>
+                                         </td>
                                       </tr>
                 
                                     <?php endforeach; ?>
                                 </tbody>
                                 </table>
+                                <!-- Pagination -->
+                                <div class="mt-3">
+                                    
+                                    <?php echo $pager->links() ?>
+
+                                </div>
                             </div>
+                            
 
 
                         <?php endif; ?>

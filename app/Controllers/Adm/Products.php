@@ -232,14 +232,54 @@ class Products extends BaseController
 
         $data = [
          'title' => "Gerenciar os extras do Produto: $product->name",
+         'moeda' => "R$",
          'product' => $product,
          'extras' => $this->extraModel->where('active',true)->findAll(),
-         'productsExtras' => $this->productExtraModel->findExtrasProduct($product->id),
+         'productsExtras' => $this->productExtraModel->findExtrasProduct($product->id, 10),
+         'pager'=> $this->productExtraModel->pager,
         ];
 
         return view('adm/Products/extra', $data);
     }
 
+    public function registerExtras($id = null)
+    {
+        if($this->request->getMethod()==='post'){
+
+           $product = $this->findProductOr404($id);
+
+           $extraProduct['extra_id'] = $this->request->getPost('extra_id');
+           $extraProduct['product_id'] = $product->id;
+
+           $extraExist = $this->productExtraModel->where('product_id', $product->id)
+                                                 ->where('extra_id', $extraProduct['extra_id'])
+                                                 ->first();
+           if($extraExist){
+
+            return redirect()->back()->with('attention', 'Esse extra já existe para esse produto.');
+          
+            }
+
+           //dd($extraProduct);
+
+           if ($this->productExtraModel->save($extraProduct)) {
+               return redirect()->back()->with('success', 'Extra atribuido com sucesso');
+            } else {
+            // erros de validação
+
+                return redirect()->back()
+                                ->with('errors_model', $this->productExtraModel->errors())
+                                ->with('attention', 'Por favor verifique os erros abaixo')
+                                ->withInput();
+            }
+
+
+
+        } else {
+            /* Não é o método post */
+            return redirect()->back();
+        }
+    }
 
     public function update($id = null)
     {
@@ -298,6 +338,8 @@ class Products extends BaseController
             return redirect()->back();
         }
     }
+
+    
 
       /**
        * Pesquisa Produtos no database.
