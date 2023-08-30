@@ -112,7 +112,7 @@
                                          
                                          <!--- Botão Excluir -->
                                          <td class="text-center"> 
-                                            <?php echo form_open("delete_extra/$productExtra->id"); ?>
+                                            <?php echo form_open("adm/products/delete_extra/$productExtra->id/$productExtra->product_id"); ?>
                                             <button type="submit" class="btn badge badge-danger"> <i class="mdi mdi-trash-can btn-icon-prepend"></i></button>
                                             <?php echo form_close(); ?>
                                          </td>

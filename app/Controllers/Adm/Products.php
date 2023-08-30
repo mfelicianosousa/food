@@ -281,6 +281,44 @@ class Products extends BaseController
         }
     }
 
+    /**
+     * delete_extra function
+     * Deletar o registro extra do produto
+     * @param [type] $main_id
+     * @param [type] $product_id
+     * @return void
+     */
+    public function delete_extra($main_id= null, $product_id) {
+
+        if ($this->request->getMethod() === 'post'){
+
+            $product = $this->findProductOr404($product_id) ;
+
+            $productExtra = $this->productExtraModel
+                                 ->where('id',$main_id)
+                                 ->where('product_id',$product->id)
+                                 ->first();
+            if(!$productExtra){
+                return redirect()->back()->with("attention","Não encontramos o registro principal");
+            }
+
+            $this->productExtraModel->delete($main_id);
+
+            return redirect()->back()->with("success","Extra excluido com sucesso.");
+            
+
+
+
+        } else {
+
+            /* Não é o método post */
+            return redirect()->back();
+
+        }
+
+
+    }
+
     public function update($id = null)
     {
         if ($this->request->getMethod() === 'post') {
