@@ -198,7 +198,7 @@ class Extras extends BaseController
     {
         $extra = $this->findExtraOr404($id);
 
-        if ($extra->deleted_at != null) {
+        if ($extra->deleted_at == null) {
             return redirect()->back()->with('info', "O extra, <strong>'$extra->name'</strong> já encontra-se excluída.");
         }
 

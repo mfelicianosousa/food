@@ -1,9 +1,8 @@
 /**
 *
-* Formulário de Excluir Extras do produto
+* Formulário para Exclusão do produto
 *
 */
-
 <?php echo $this->extend('Adm/Layout/main'); ?>
 <!-- ************************************************************** -->
 
@@ -48,10 +47,10 @@
                 <?php } ?>
 
                 <!-- Envia o registro para exclusão -->
-                <?php echo form_open("adm/extras/excluir/$extra->id"); ?>
+                <?php echo form_open("adm/products/delete_product/$product->id"); ?>
                     
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>Atenção! </strong>Tem certeza da exclusão do extra, <strong> <?php echo esc($extra->name); ?>?</strong>
+                        <strong>Atenção! </strong>Tem certeza da exclusão do produto?</strong>
                         
                     </div>
                     <button type="submit" class="btn btn-danger mr-2 btn-sm">
@@ -60,7 +59,7 @@
                     </button>
                     
                     <!-- botão voltar -->
-                    <a href="<?php echo site_url("adm/extras/show/$extra->id"); ?>" class="btn btn-light text-dark btn-sm">
+                    <a href="<?php echo site_url("adm/products/show/$product->id"); ?>" class="btn btn-light text-dark btn-sm">
                         <i class="mdi mdi-arrow-left btn-icon-prepend"></i>
                         Voltar
                     </a>

@@ -85,7 +85,7 @@
                     
                     <div class="col-md-8">
 
-                        <?php if(empty($productsExtras)): ?>
+                        <?php if(empty($productExtras)): ?>
 
                             <p>Produto não possui extras </p>
 
@@ -105,7 +105,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($productsExtras as $productExtra): ?>
+                                    <?php foreach ($productExtras as $productExtra): ?>
                                       <tr>
                                          <td><?php echo esc($productExtra->extra); ?></td>
                                          <td><?php echo esc($moeda); ?>&nbsp;<?php echo number_format($productExtra->price,2);?></td>

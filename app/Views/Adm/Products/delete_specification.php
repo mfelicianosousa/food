@@ -1,6 +1,6 @@
 /**
 *
-* Formulário de Excluir Extras do produto
+* Formulário de Exclusão de especificação
 *
 */
 
@@ -10,17 +10,17 @@
 <!-- Aqui enviamos para os template main (principal) os estilos -->
 <?php echo $this->section('titulo'); ?>
 <?php echo $title; ?>
-<?php echo $this->endSection(); ?>
+<?php echo $this->endSection() ?>
 <!-- ************************************************************** -->
 
-<?php echo $this->section('style'); ?>
+<?php echo $this->section('style') ?>
 <!-- Aqui enviamos para os template main (principal) os estilos -->
 
-<?php echo $this->endSection(); ?>
+<?php echo $this->endSection() ?>
 <!-- ************************************************************** -->
 
 
-<?php echo $this->section('content'); ?>
+<?php echo $this->section('content') ?>
 <!-- Aqui enviamos para os template principal (main) o content (conteúdos) -->
 <div class="row">
 
@@ -34,24 +34,24 @@
 
             <div class="card-body">
                 <!-- Erros de formulário -->
-                <?php if (session()->has('errors_model')) { ?>
+                <?php if (session()->has('errors_model')): ?>
 
                     <ul>
-                        <?php foreach (session('errors_model') as $error) { ?>
+                        <?php foreach (session('errors_model') as $error): ?>
 
                             <li class="text-danger"><?php echo $error; ?></li>
 
-                        <?php } ?>
+                        <?php endforeach; ?>
 
                     </ul>
 
-                <?php } ?>
+                <?php endif ?>
 
                 <!-- Envia o registro para exclusão -->
-                <?php echo form_open("adm/extras/excluir/$extra->id"); ?>
+                <?php echo form_open("adm/products/delete_specification/$specificationProduct->id/$specificationProduct->product_id");?>
                     
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>Atenção! </strong>Tem certeza da exclusão do extra, <strong> <?php echo esc($extra->name); ?>?</strong>
+                        <strong>Atenção! </strong>Tem certeza da exclusão da especificação, do produto?</strong>
                         
                     </div>
                     <button type="submit" class="btn btn-danger mr-2 btn-sm">
@@ -60,25 +60,25 @@
                     </button>
                     
                     <!-- botão voltar -->
-                    <a href="<?php echo site_url("adm/extras/show/$extra->id"); ?>" class="btn btn-light text-dark btn-sm">
+                    <a href="<?php echo site_url("adm/products/specification/$specificationProduct->product_id"); ?>" class="btn btn-light text-dark btn-sm">
                         <i class="mdi mdi-arrow-left btn-icon-prepend"></i>
                         Voltar
                     </a>
                     
-                <?php echo form_close(); ?>
+                <?php echo form_close();?>
 
             </div>
         </div>
     </div>
 </div>
-<?php echo $this->endSection(); ?>
+<?php echo $this->endSection() ?>
 <!-- ************************************************************** -->
 
 
-<?php echo $this->section('scriptJs'); ?>
+<?php echo $this->section('scriptJs') ?>
 <!-- Aqui enviamos para o template principal (main) os scripts ) -->
-<script src="<?php echo site_url('adm/vendors/mask/app.js'); ?>"> </script>
-<script src="<?php echo site_url('adm/vendors/mask/jquery.mask.min.js'); ?>"> </script>
+<script src="<?php echo site_url('adm/vendors/mask/app.js') ;?>"> </script>
+<script src="<?php echo site_url('adm/vendors/mask/jquery.mask.min.js') ;?>"> </script>
 
 
-<?php echo $this->endSection(); ?>
+<?php echo $this->endSection() ?>

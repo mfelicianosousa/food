@@ -30,20 +30,23 @@
 
             <div class="card-body">
                 <div class="text-center">
-                    <?php if ($product->image) { ?>
+                    <?php if ($product->image && $product->deleted_at == null) { ?>
                             <img class="card-img-top w-75" src="<?php echo site_url("adm/products/image/$product->image"); ?>" alt="<?php echo esc($product->name); ?>">
                     <?php } else { ?>
                         <img class="card-img-top w-75" src="<?php echo site_url('adm/images/product-without-image.jpg'); ?>" alt="Produto sem imagem">
                     <?php } ?>
                 </div>
-                <hr>
-                <!--- Botão Editar imagem -->
-                <a href="<?php echo site_url("adm/products/editimage/$product->id"); ?>" class="btn btn-outline-primary mt-2 mb-2 btn-sm">
-                   <i class="mdi mdi-image btn-icon-prepend"></i>
-                    Editar
-                </a>
                 
-                <hr>
+                <?php if ($product->deleted_at == null): ?>
+                    <hr>
+                        <!--- Botão Editar imagem -->
+                        <a href="<?php echo site_url("adm/products/editimage/$product->id"); ?>" class="btn btn-outline-primary mt-2 mb-2 btn-sm">
+                        <i class="mdi mdi-image btn-icon-prepend"></i>
+                            Editar imagem
+                        </a>
+                    <hr>
+
+                <?php endif; ?>
            
                 <p class="card-text">
                     <span class="font-weight-bold">Nome:</span>
@@ -97,11 +100,20 @@
                             <i class="mdi mdi-pencial btn-icon-prepend"></i>
                             Extras
                         </a>
+                        <!--- Botão Extras -->
+                        <a href="<?php echo site_url("adm/products/specification/$product->id"); ?>" class="btn btn-outline-warning btn-sm mr-2">
+                            <i class="mdi mdi-pencial btn-icon-prepend"></i>
+                            Especificação
+                        </a>
+
+
                           <!--- Botão Excluir -->
-                        <a href="<?php echo site_url("adm/products/excluir/$product->id"); ?>" class="btn btn-danger btn-sm mr-2">
+                        <a href="<?php echo site_url("adm/products/delete_product/$product->id"); ?>" class="btn btn-danger btn-sm mr-2">
                             <i class="mdi mdi-trash-can btn-icon-prepend"></i>
                             Excluir
                         </a>
+
+
                         <!--- Botão Voltar-->
                         <a href="<?php echo site_url('adm/products'); ?>" class="btn btn-light text-dark btn-sm">
                             <i class="mdi mdi-arrow-left btn-icon-prepend"></i>
