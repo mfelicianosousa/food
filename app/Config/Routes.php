@@ -32,8 +32,20 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('login', 'Login::login',['filter' => 'visitor']);
-
+$routes->get('login', 'Login::login', ['filter' => 'visitor']);
+$routes->group('adm', function ($routes) {
+    /* para o get */
+    $routes->add('payment', 'Adm\PaymentMethods::index');
+    $routes->add('payment/create', 'Adm\PaymentMethods::create');
+    $routes->add('payment/show/(:num)', 'Adm\PaymentMethods::show/$1');
+    $routes->add('payment/edit/(:num)', 'Adm\PaymentMethods::edit/$1');
+    $routes->add('payment/undodelete/(:num)', 'Adm\PaymentMethods::undodelete/$1');
+    /* para o post */
+    $routes->post('payment/update/(:num)', 'Adm\PaymentMethods::update/$1');
+    $routes->post('payment/register', 'Adm\PaymentMethods::register');
+    /* para o get e post */
+    $routes->match(['get', 'post'], 'payment/delete/(:num)', 'Adm\PaymentMethods::delete/$1');
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing
@@ -47,6 +59,6 @@ $routes->get('login', 'Login::login',['filter' => 'visitor']);
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
-if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
-    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+if (is_file(APPPATH.'Config/'.ENVIRONMENT.'/Routes.php')) {
+    require APPPATH.'Config/'.ENVIRONMENT.'/Routes.php';
 }

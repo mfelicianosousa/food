@@ -1,8 +1,4 @@
-<?php
-
-use App\Entities\Product;
-
- echo $this->extend('Adm/Layout/main'); ?>
+<?php echo $this->extend('Adm/Layout/main'); ?>
 <!-- ************************************************************** -->
 
 <!-- Aqui enviamos para os template main (principal) os estilos -->
@@ -32,9 +28,9 @@ use App\Entities\Product;
 
                 <div class="ui-widget">
                     <!--label for="query">Pesquisar:</label> -->
-                    <input id="query" name="query" placeholder="Pesquise por um produto" class="form-control bg-light mb-5">
+                    <input id="query" name="query" placeholder="Pesquise por um entregador" class="form-control bg-light mb-5">
                 </div>
-                <a href="<?php echo site_url('adm/products/create'); ?>" class="btn btn-success float-right mt-1 mb-5">
+                <a href="<?php echo site_url('adm/deliverymens/create'); ?>" class="btn btn-success float-right mt-1 mb-5">
                     <i class="mdi mdi-plus btn-icon-prepend"></i>
                     Cadastrar
                 </a>
@@ -43,43 +39,44 @@ use App\Entities\Product;
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Imagem</th>
+                                <th>Image</th>
                                 <th>Nome</th>
-                                <th>Categoria</th>
-                                <th>Criado Em</th>
+                                <th>Telefone</th>
+                                <th>Placa</th>
                                 <th>Ativo</th>
                                 <th>Situação</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($products as $product) { ?>
+                            <?php foreach ($deliverymens as $deliverymen) { ?>
 
                                 <tr>
                                     <td class="py-1">
+                                        <?php if ($deliverymen->image) { ?>
 
-                                        <?php if ($product->image) { ?>
-
-                                            <img src="<?php echo site_url("adm/products/image/$product->image"); ?>" alt="<?php echo esc($product->name); ?>"/>
+                                            <img src="<?php echo site_url("adm/deliverymens/image/$deliverymen->image"); ?>" alt="<?php echo esc($deliverymen->name); ?>"/>
 
                                         <?php } else { ?>
-                                            <img src="<?php echo site_url('adm/'); ?>images/product-without-image.png" alt="Produto sem imagem"/>
+                                            <img src="<?php echo site_url('adm/'); ?>images/deliverymen-no-image.png" alt="Sem imagem"/>
                                             
                                         <?php } ?>
-                                        </td>
-                                    <td>
-                                        <a href="<?php echo site_url("adm/products/show/$product->id"); ?>"> <?php echo $product->name; ?></a>
                                     </td>
-                                    <td> <?php echo $product->category; ?></td>
+                                    <td>
+                                        <a href="<?php echo site_url("adm/deliverymens/show/$deliverymen->id"); ?>"> <?php echo $deliverymen->name; ?></a>
+                                    </td>
                                     
-                                    <td> <?php echo $product->created_at->humanize(); ?></td>
-                                    <td> <?php echo $product->active && $product->deleted_at == null ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-danger">Não</label>'; ?></td>
+                                    <td> <?php echo $deliverymen->phone_celular; ?></td>
+                                    <td> <?php echo $deliverymen->vehicle_plate; ?></td>
+                                    <td> <?php echo $deliverymen->active && $deliverymen->deleted_at == null ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-danger">Não</label>'; ?></td>
                                     <td> 
-                                        <?php echo $product->deleted_at == null ? '<label class="badge badge-primary">Disponível</label>' : '<label class="badge badge-danger"> Excluído </label>'; ?>
-                                        <?php if ($product->deleted_at != null) { ?>
-                                            <a href="<?php echo site_url("adm/products/undodelete/$product->id"); ?>" class="badge badge-dark ml-2"> 
+                                        <?php echo $deliverymen->deleted_at == null ? '<label class="badge badge-primary">Disponível</label>' : '<label class="badge badge-danger"> Excluído </label>'; ?>
+                                        <?php if ($deliverymen->deleted_at != null) { ?>
+                                            <a href="<?php echo site_url("adm/deliverymens/undodelete/$deliverymen->id"); ?>" class="badge badge-dark ml-2"> 
                                                 <i class="mdi mdi-undo btn-icon-prepend"></i>
                                                 Desfazer
                                             </a>
+
+
                                         <?php } ?>
                                    </td>
                                 </tr>
@@ -87,7 +84,9 @@ use App\Entities\Product;
 
                         </tbody>
                     </table>
+                    <!-- Pagination -->
                     <div class="mt-3">
+                        
                        <?php echo $pager->links(); ?>
 
                     </div>
@@ -109,7 +108,7 @@ use App\Entities\Product;
         $("#query").autocomplete({
             source: function(request, response) {
                 $.ajax({
-                    url: "<?php echo site_url('adm/products/search'); ?>",
+                    url: "<?php echo site_url('adm/deliverymens/search'); ?>",
                     dataType: "json",
                     data: {
                         term: request.term
@@ -117,7 +116,7 @@ use App\Entities\Product;
                     success: function(data) {
                         if (data.length < 1) {
                             var data = [{
-                                label: 'Produto não encontrado!',
+                                label: 'Entregador não encontrado!',
                                 value: -1
                             }];
                         }
@@ -131,7 +130,7 @@ use App\Entities\Product;
                     $(this).val("");
                     return false;
                 } else {
-                    window.location.href = '<?php echo site_url('adm/products/show/'); ?>' + ui.item.id;
+                    window.location.href = '<?php echo site_url('adm/deliverymens/show/'); ?>' + ui.item.id;
                 }
             }
 

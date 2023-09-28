@@ -1,8 +1,4 @@
-<?php
-
-use App\Entities\Product;
-
- echo $this->extend('Adm/Layout/main'); ?>
+<?php echo $this->extend('Adm/Layout/main'); ?>
 <!-- ************************************************************** -->
 
 <!-- Aqui enviamos para os template main (principal) os estilos -->
@@ -32,9 +28,9 @@ use App\Entities\Product;
 
                 <div class="ui-widget">
                     <!--label for="query">Pesquisar:</label> -->
-                    <input id="query" name="query" placeholder="Pesquise por um produto" class="form-control bg-light mb-5">
+                    <input id="query" name="query" placeholder="Pesquise por um bairro atendido " class="form-control bg-light mb-5">
                 </div>
-                <a href="<?php echo site_url('adm/products/create'); ?>" class="btn btn-success float-right mt-1 mb-5">
+                <a href="<?php echo site_url('adm/districts/create'); ?>" class="btn btn-success float-right mt-1 mb-5">
                     <i class="mdi mdi-plus btn-icon-prepend"></i>
                     Cadastrar
                 </a>
@@ -43,40 +39,26 @@ use App\Entities\Product;
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Imagem</th>
                                 <th>Nome</th>
-                                <th>Categoria</th>
-                                <th>Criado Em</th>
+                                <th>Valor Entrega</th>
                                 <th>Ativo</th>
                                 <th>Situação</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($products as $product) { ?>
+                            <?php foreach ($districts as $district) { ?>
 
                                 <tr>
-                                    <td class="py-1">
-
-                                        <?php if ($product->image) { ?>
-
-                                            <img src="<?php echo site_url("adm/products/image/$product->image"); ?>" alt="<?php echo esc($product->name); ?>"/>
-
-                                        <?php } else { ?>
-                                            <img src="<?php echo site_url('adm/'); ?>images/product-without-image.png" alt="Produto sem imagem"/>
-                                            
-                                        <?php } ?>
-                                        </td>
                                     <td>
-                                        <a href="<?php echo site_url("adm/products/show/$product->id"); ?>"> <?php echo $product->name; ?></a>
+                                        <a href="<?php echo site_url("adm/districts/show/$district->id"); ?>"> <?php echo $district->name; ?></a>
                                     </td>
-                                    <td> <?php echo $product->category; ?></td>
-                                    
-                                    <td> <?php echo $product->created_at->humanize(); ?></td>
-                                    <td> <?php echo $product->active && $product->deleted_at == null ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-danger">Não</label>'; ?></td>
+                                    <td> R$&nbsp; <?php echo esc(number_format($district->delivery_value, 2)); ?></td>
+                                
+                                    <td> <?php echo $district->active && $district->deleted_at == null ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-danger">Não</label>'; ?></td>
                                     <td> 
-                                        <?php echo $product->deleted_at == null ? '<label class="badge badge-primary">Disponível</label>' : '<label class="badge badge-danger"> Excluído </label>'; ?>
-                                        <?php if ($product->deleted_at != null) { ?>
-                                            <a href="<?php echo site_url("adm/products/undodelete/$product->id"); ?>" class="badge badge-dark ml-2"> 
+                                        <?php echo $district->deleted_at == null ? '<label class="badge badge-primary">Disponível</label>' : '<label class="badge badge-danger"> Excluído </label>'; ?>
+                                        <?php if ($district->deleted_at != null) { ?>
+                                            <a href="<?php echo site_url("adm/districts/undodelete/$district->id"); ?>" class="badge badge-dark ml-2"> 
                                                 <i class="mdi mdi-undo btn-icon-prepend"></i>
                                                 Desfazer
                                             </a>
@@ -109,7 +91,7 @@ use App\Entities\Product;
         $("#query").autocomplete({
             source: function(request, response) {
                 $.ajax({
-                    url: "<?php echo site_url('adm/products/search'); ?>",
+                    url: "<?php echo site_url('adm/districts/search'); ?>",
                     dataType: "json",
                     data: {
                         term: request.term
@@ -117,7 +99,7 @@ use App\Entities\Product;
                     success: function(data) {
                         if (data.length < 1) {
                             var data = [{
-                                label: 'Produto não encontrado!',
+                                label: 'Bairro não encontrado!',
                                 value: -1
                             }];
                         }
@@ -131,7 +113,7 @@ use App\Entities\Product;
                     $(this).val("");
                     return false;
                 } else {
-                    window.location.href = '<?php echo site_url('adm/products/show/'); ?>' + ui.item.id;
+                    window.location.href = '<?php echo site_url('adm/districts/show/'); ?>' + ui.item.id;
                 }
             }
 

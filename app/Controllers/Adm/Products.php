@@ -203,7 +203,7 @@ class Products extends BaseController
 
     public function image(string $image = null)
     {
-        dd($image);
+       // dd($image);
 
         if ($image) {
 
@@ -211,10 +211,10 @@ class Products extends BaseController
 
             $imageInfo = new \finfo(FILEINFO_MIME);
 
-            echo '<pre>';
-            print_r($imagePath);
-            echo '</pre>';
-            exit;
+            // echo '<pre>';
+            // print_r($imagePath);
+            // echo '</pre>';
+            // exit;
             // $imageInfo = new Finfo(FILEINFO_MIME_TYPE);
             // $imageInfo = new finfo();
             // $imageInfo->set_flags(FILEINFO_MIME_TYPE);

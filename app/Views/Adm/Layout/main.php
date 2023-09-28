@@ -194,15 +194,35 @@
 
         <li class="nav-item">
           <a class="nav-link" href="<?php echo site_url('adm/measurements'); ?>">
-            <i class="mdi mdi-box-shadow menu-icon"></i>
+            <i class="mdi mdi-altimeter menu-icon"></i>
             <span class="menu-title">Medidas</span>
           </a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" href="<?php echo site_url('adm/products'); ?>">
-            <i class="mdi mdi-account-settings menu-icon"></i>
+            <i class="mdi mdi-label menu-icon"></i>
             <span class="menu-title">Produtos</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo site_url('adm/payment'); ?>">
+            <i class="mdi mdi-cash-multiple menu-icon"></i>
+            <span class="menu-title">Formas de Pagamento</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo site_url('adm/deliverymens'); ?>">
+            <i class="mdi mdi-motorbike menu-icon"></i>
+            <span class="menu-title">Entregadores</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo site_url('adm/districts'); ?>">
+            <i class="mdi mdi-city-variant menu-icon"></i>
+            <span class="menu-title">Bairros</span>
           </a>
         </li>
 
